@@ -18,7 +18,7 @@ for path_file in PATH_FILES:
             sentence = "{}{}{}".format(START_OF_SENTENCE, sentence, END_OF_SENTENCE)
             output.add(sentence)
 total_sentences = " ".join(sorted(output))
-total_characters = "".join(set(total_sentences))
+total_characters = "".join(set(total_sentences)) + '\n'
 total_characters = sorted(total_characters)
 total_characters_mapping = dict((c, i) for i, c in enumerate(total_characters))
 pickle.dump(total_characters_mapping, open('data/nlp_character_vocab.pkl', 'wb'))
@@ -29,3 +29,9 @@ for i in range(0, len(total_sentences) - NUMBER_OF_CHARACTER_TO_TRAIN):
 
 with open("data/nlp_dataset.txt", 'w') as file:
     file.writelines(line for line in final_output)
+
+# Create encode data
+with open("data/nlp_dataset_encode.txt", "w") as file:
+    for line in final_output:
+        line_encode = " ".join(str(total_characters_mapping[char]) for char in line if char != '\n')
+        file.writelines(line_encode + "\n")

@@ -4,7 +4,7 @@ import torch.tensor as tensor
 from torch.nn import functional as F
 
 class SimpleLSTM(nn.Module):
-    def __init__(self, embedding_dim, hidden_dim, vocab_size, tagset_size):
+    def __init__(self, embedding_dim: int, hidden_dim: int, vocab_size: int, tagset_size: int):
         super(SimpleLSTM, self).__init__()
         self.hidden_dim = hidden_dim
         self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
