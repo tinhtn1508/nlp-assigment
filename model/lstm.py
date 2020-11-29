@@ -13,7 +13,7 @@ class SimpleLSTM(nn.Module):
 
     def forward(self, sentence):
         embeds = self.word_embeddings(sentence)
-        lstm_out, _ = self.lstm(embeds.view(len(sentence)), 1, -1)
-        tag_space = self.hidden2tag(lstm_out.view(len(sentence), -1))
-        tag_score = F.log_softmax(tag_space, dim = 1)
-        return tag_score
+        lstm_out, _ = self.lstm(embeds)
+        tag_space = self.hidden2tag(lstm_out)[:, -1, :]
+        # tag_score = F.softmax(tag_space, dim=1)
+        return tag_space
