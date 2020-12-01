@@ -1,0 +1,30 @@
+import argparse
+
+def get_train_parser():
+    parser = argparse.ArgumentParser(description='NLP Assigment')
+    parser.add_argument('--data', type=str, default='data', help='location of the data corpus')
+    parser.add_argument('--model', type=str, default='LSTM', help='type of rnn (LSTM, GRU)')
+    parser.add_argument('--embsize', type=int, default=200, help='size of word embeddings')
+    parser.add_argument('--nhidden', type=int, default=200, help='number of hidden units per layer')
+    parser.add_argument('--nlayers', type=int, default=2, help='number of layers')
+    parser.add_argument('--lr', type=float, default=20, help='learning rate')
+    parser.add_argument('--epochs', type=int, default=40, help='upper epoch limit')
+    parser.add_argument('--batch_size', type=int, default=20, help='batch size')
+    parser.add_argument('--sequence_length', type=int, default=35, help='sequence length')
+    parser.add_argument('--dropout', type=float, default=0.2, help='dropout applied to layers')
+    parser.add_argument('--seed', type=int, default=7777, help='random seed')
+    parser.add_argument('--cuda', action='store_true', help='use CUDA')
+    parser.add_argument('--log-interval', type=int, default=200, metavar='N', help='report interval')
+    parser.add_argument('--save', type=str, default='model.pt', help='path to save the final model')
+    return parser.parse_args()
+
+def get_generate_parser():
+    parser = argparse.ArgumentParser(description='NLP Assigment')
+    parser.add_argument('--data', type=str, default='data', help='location of the data corpus')
+    parser.add_argument('--checkpoint', type=str, default='model.pt', help='model checkpoint to use')
+    parser.add_argument('--outf', type=str, default='generated.txt', help='output file for generated text')
+    parser.add_argument('--words', type=int, default='1000', help='number of words to generate')
+    parser.add_argument('--seed', type=int, default=1111, help='random seed')
+    parser.add_argument('--cuda', action='store_true', help='use CUDA')
+    parser.add_argument('--log-interval', type=int, default=100, help='reporting interval')
+    return parser.parse_args()

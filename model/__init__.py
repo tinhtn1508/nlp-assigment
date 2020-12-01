@@ -1,1 +1,1 @@
-from .lstm import SimpleLSTM
+from .rnn import RNNModel
