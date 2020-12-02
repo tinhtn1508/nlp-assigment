@@ -73,7 +73,10 @@ def test(criterion, test_data, eval_batch_size):
         print('=' * 89)
 
 def main():
-    corpus = data.CorpusCharacter(args.data)
+    if args.mode == 'sentence':
+        corpus = data.Corpus(args.data)
+    else:
+        corpus = data.CorpusCharacter(args.data)
     eval_batch_size = 10
     
     train_data = utils.batchify(corpus.train, args.batch_size, device)

@@ -16,6 +16,7 @@ def get_train_parser():
     parser.add_argument('--cuda', action='store_true', help='use CUDA')
     parser.add_argument('--log-interval', type=int, default=200, metavar='N', help='report interval')
     parser.add_argument('--save', type=str, default='model.pt', help='path to save the final model')
+    parser.add_argument('--mode', type=str, default='sentence', help='sentence of character')
     return parser.parse_args()
 
 def get_generate_parser():
