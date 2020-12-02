@@ -14,7 +14,7 @@ There two approaches
         ậ --> u -- probablity: 1.74%\
         u -->   -- probablity: 95.77%\
           --> v -- probablity: 98.26%\
-        v --> u -- probablity: 0.01% -- candidate: ớ, ệ, à, ề, i\
+        v --> u -- probablity: 0.01% -- candidate: ớ, ệ, à, ề, i
  # generate sentences
  Execute: python generate.py --cuda --prefix "cầu thủ eden hazard" --nsentence 10\
  Result:\
@@ -27,4 +27,4 @@ There two approaches
       đó là lý do khiến messi ra nhiều .\
       real muốn mua malcom trong hè 2020 .\
       một trong những cầu thủ lớn nhất châu âu như kylian mbappe và javier mascherano là cristiano ronaldo .\
-      tính từ mùa trướccầu thủ ghi bàn nhiều nhất mùa giải 2017-2018 .\
+      tính từ mùa trướccầu thủ ghi bàn nhiều nhất mùa giải 2017-2018 .
