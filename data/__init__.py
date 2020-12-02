@@ -1,1 +1,1 @@
-from .data import Corpus
+from .data import Corpus, CorpusCharacter

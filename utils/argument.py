@@ -26,5 +26,17 @@ def get_generate_parser():
     parser.add_argument('--words', type=int, default='1000', help='number of words to generate')
     parser.add_argument('--seed', type=int, default=1111, help='random seed')
     parser.add_argument('--cuda', action='store_true', help='use CUDA')
+    parser.add_argument('--nsentence', type=int, default=1, help='Number of sentences')
+    parser.add_argument('--prefix', type=str, default="", help='prefix for start of sentence')
     parser.add_argument('--log-interval', type=int, default=100, help='reporting interval')
+    return parser.parse_args()
+
+def get_check_grammar_parser():
+    parser = argparse.ArgumentParser(description='NLP Assigment')
+    parser.add_argument('--data', type=str, default='data', help='location of the data corpus')
+    parser.add_argument('--checkpoint', type=str, default='model.pt', help='model checkpoint to use')
+    parser.add_argument('--seed', type=int, default=1111, help='random seed')
+    parser.add_argument('--cuda', action='store_true', help='use CUDA')
+    parser.add_argument('--ncharacter', type=int, default=1, help='Number of sentences')
+    parser.add_argument('--prefix', type=str, default="", help='prefix for start of sentence')
     return parser.parse_args()

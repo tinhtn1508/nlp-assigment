@@ -6,6 +6,7 @@ import time
 import os
 import data
 import math
+import pickle
 from loguru import logger
 
 args = utils.get_train_parser()
@@ -48,14 +49,14 @@ def train(_model, criterion, train_data, ntokens, learning_rate, epoch):
             total_loss = 0
             start_time = time.time()
 
-def validate(_model, criterion, valid_data, eval_batch_size):
+def evaluate(_model, criterion, valid_data, eval_batch_size):
     _model.eval()
     total_loss = .0
     hidden = _model.init_hidden(eval_batch_size)
 
     with torch.no_grad():
         for i in range(0, valid_data.size(0) - 1, args.sequence_length):
-            data, targets = get_batch(valid_data, i, min(args.sequence_length, len(valid_data) - 1 - i))
+            data, targets = utils.get_batch(valid_data, i, min(args.sequence_length, len(valid_data) - 1 - i))
             output, hidden = _model(data, hidden)
             hidden = utils.repackage_hidden(hidden)
             total_loss += len(data) * criterion(output, targets).item()
@@ -72,8 +73,9 @@ def test(criterion, test_data, eval_batch_size):
         print('=' * 89)
 
 def main():
-    corpus = data.Corpus(args.data)
+    corpus = data.CorpusCharacter(args.data)
     eval_batch_size = 10
+    
     train_data = utils.batchify(corpus.train, args.batch_size, device)
     val_data = utils.batchify(corpus.valid, eval_batch_size, device)
     test_data = utils.batchify(corpus.test, eval_batch_size, device)
@@ -96,16 +98,15 @@ def main():
             print('-' * 89)
             if not best_val_loss or val_loss < best_val_loss:
                 with open(args.save, 'wb') as f:
-                    torch.save(model, f)
+                    torch.save(_model, f)
                     best_val_loss = val_loss
             else:
-                lr /= 4.0
+                _lr /= 4.0
     except KeyboardInterrupt:
         print('-' * 89)
         print('Exiting from training early')
 
     test(_criterion, test_data, eval_batch_size)
-
 
 if __name__ == "__main__":
     main()
